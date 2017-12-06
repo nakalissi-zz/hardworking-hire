@@ -1,0 +1,104 @@
+$color-primary: #d1b934;
+$color-secondary: #000;
+$color-hover: #F5F5F5;
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-inverse {
+  border-radius: 0 !important;
+  background-image: none;
+  .navbar-brand{
+    padding: 5px 15px;
+    text-shadow: none;
+    img{
+      max-width: 100%;
+      width: 80px;
+    }
+  }
+}
+
+.formSignup{
+  max-width: 500px;
+  font-size: 1.2em;
+  margin: 0 auto;
+  label {
+    display: block;
+    font-weight: normal;
+  }
+  h3 {
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 500px) {
+  .formSignup {
+    min-width: 90%;
+  }
+}
+
+.table.allocation{
+  tbody{
+    tr{
+      &:hover{
+        background-color: $color-hover;
+      }
+    }
+  }
+}
+
+.gi-2x{font-size: 2em;}
+.gi-3x{font-size: 3em;}
+.gi-4x{font-size: 4em;}
+.gi-5x{font-size: 5em;}
+
+.profile{
+  .photo{
+    background-color: #eaeaea;
+    line-height: 70px;
+    width: 70px;
+    text-align: center;
+    .glyphicon-user{
+      color: white;
+    }
+  }
+}
+
+.table{
+  &.allocations{
+    tbody{
+      tr{
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.timesheet{
+  .form-inline{
+    label{
+      display: block;
+    }
+  } 
+  .submit-button{
+    margin-top: 25px;
+  }
+
+  .signature{
+    margin-top: 50px;
+    p{
+      border-top: 1px solid #ccc;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+
+footer {
+  padding: 20px 0;
+}

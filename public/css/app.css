@@ -1,0 +1,73 @@
+html, body {
+  height: 100%; }
+
+body {
+  margin: 0;
+  padding: 0; }
+
+.navbar-inverse {
+  border-radius: 0 !important;
+  background-image: none; }
+  .navbar-inverse .navbar-brand {
+    padding: 5px 15px;
+    text-shadow: none; }
+    .navbar-inverse .navbar-brand img {
+      max-width: 100%;
+      width: 80px; }
+
+.formSignup {
+  max-width: 500px;
+  font-size: 1.2em;
+  margin: 0 auto; }
+  .formSignup label {
+    display: block;
+    font-weight: normal; }
+  .formSignup h3 {
+    margin-bottom: 20px; }
+
+@media (max-width: 500px) {
+  .formSignup {
+    min-width: 90%; } }
+
+.table.allocation tbody tr:hover {
+  background-color: #F5F5F5; }
+
+.gi-2x {
+  font-size: 2em; }
+
+.gi-3x {
+  font-size: 3em; }
+
+.gi-4x {
+  font-size: 4em; }
+
+.gi-5x {
+  font-size: 5em; }
+
+.profile .photo {
+  background-color: #eaeaea;
+  line-height: 70px;
+  width: 70px;
+  text-align: center; }
+  .profile .photo .glyphicon-user {
+    color: white; }
+
+.table.allocations tbody tr {
+  cursor: pointer; }
+
+.timesheet .form-inline label {
+  display: block; }
+
+.timesheet .submit-button {
+  margin-top: 25px; }
+
+.timesheet .signature {
+  margin-top: 50px; }
+  .timesheet .signature p {
+    border-top: 1px solid #ccc;
+    margin-bottom: 5px; }
+
+footer {
+  padding: 20px 0; }
+
+/*# sourceMappingURL=app.css.map */
