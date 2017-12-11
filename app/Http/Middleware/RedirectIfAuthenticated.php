@@ -17,7 +17,6 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-      var_dump($guard);
       switch ($guard) {
         case 'admin':
           if (Auth::guard($guard)->check()) {

@@ -44,7 +44,7 @@
                 </div>
 
             <button type="submit" class="btn btn-primary submit-button">Submit</button>
-    
+            <button type="button" class="btn btn-info submit-button right" onclick="print_page()" name="button">Print</button>
           </form>
         </div>
         </div>

@@ -16,8 +16,6 @@ Route::auth();
 Route::get('/', 'HomeController@index');
 
 // Labour routes
-// Route::get('/labour', ['as' => 'labour.dashboard', 'uses', => 'UserController@index']);
-// Route::get('/labour/login', ['as' => 'login', 'uses' => 'UserController@login']);
 Route::get('/labour', ['as' => 'labour.dashboard', 'uses' => 'LabourController@index']);
 Route::post('/labour/add', ['uses' => 'LabourController@add']);
 Route::post('/labour/allocate', ['uses' => 'LabourController@allocateUser']);
@@ -43,25 +41,3 @@ Route::get('/jobs/add', 'JobsController@add');
 Route::post('/jobs/addjob', ['uses' => 'JobsController@addjob']);
 Route::get('/job/{id}', ['uses' => 'JobsController@jobDel']);
 // Route::get('/jobs/{id}', ['uses' => 'JobsController@allocJobView']);
-
-
-// Route::any('login', ['as' => 'labour.login', 'uses' => 'LabourController@login']);
-// Route::any('/labour/dologin', ['uses' => 'LabourController@dologin']);
-// Route::any('register', ['as' => 'labour.signup', 'uses' => 'LabourController@signup']);
-// Route::any('/labour/dosignup', 'LabourController@dosignup');
-
-// 
-// Route::any('profile', ['as' => 'labour.profile', 'uses' => 'LabourController@profile']);
-// Logged routes
-// Route::group(['middleware' => ['auth']], function()
-// {
-//   // Labour
-//   Route::get('/labour', 'LabourController@index');
-// 
-//   Route::post('/labour/add', ['uses' => 'LabourController@add']);
-//   Route::post('/labour/allocate', ['uses' => 'LabourController@allocate']);
-//   Route::get('/labour/{id}', ['uses' => 'LabourController@get']);
-//   Route::get('/labour/{id}/allocations', ['uses' => 'LabourController@allocations']);
-
-
-
