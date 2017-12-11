@@ -14,16 +14,16 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('https://hardworkinghire.herokuapp.com/public/css/app.css') }}" rel="stylesheet">
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" charset="utf-8"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.min.js" charset="utf-8"></script>
     <script src="{{ asset('public/js/app.js') }}"></script>
-    
+
     <!-- Optional IE8 Support -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -43,7 +43,7 @@
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
-            
+
                 <!-- Collapsed Hamburger -->
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                     <span class="sr-only">Toggle Navigation</span>
@@ -68,7 +68,7 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
-                          
+
                             <li><a href="{{ url('/labour/allocations') }}">Allocations</a></li>
                         </ul>
                     </li>
@@ -78,7 +78,7 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
-    
+
                             <li><a href="{{ url('/jobs/add') }}">Create Job</a></li>
                             <li><a href="{{ url('/builder/jobs') }}">All Jobs</a></li>
                             <li role="separator" class="divider"></li>
@@ -90,10 +90,10 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
-                
+
                     <li><a href="{{ url('/login ')}}">Labour</a></li>
                     <li><a href="{{ url('/builder/login ')}}">Builder</a></li>
-                    
+
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}"><span class="glyphicon glyphicon-user"></span> Register</a></li>
