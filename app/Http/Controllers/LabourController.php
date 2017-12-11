@@ -43,7 +43,7 @@ class LabourController extends Controller
     public function index()
     {
       var_dump('User '.Auth::user()->id);
-      
+
       $projects = DB::table('jobs')
         ->where('user_id',$user_id)
         ->first();
@@ -53,7 +53,7 @@ class LabourController extends Controller
         'allocations' => $allocations
       ]);
     }
-    
+
     /**
     * Get user labour by labour id
     */
@@ -67,40 +67,40 @@ class LabourController extends Controller
         return view('labour/dashboard', ['user' => $profile]);
       }
     }
-    
+
     public function allocations(Request $request){
-  
+
       // var_dump(Auth::user());
       $user_id = Auth::user()->id;
-      
+
       $getAllocUser = DB::table('allocations')
         ->leftJoin('jobs', 'jobs.job_id', '=', 'allocations.job_id')
         ->where('allocations.labour_id',$user_id)
         ->orderBy('allocations.created_at','desc')
         ->get();
 
-      dump($getAllocUser);
       return view('/labour/allocations', [
         'allocations' => $getAllocUser
       ]);
 
     }
-    
+
     public function timesheetView($alloc_id = ''){
 
       // var_dump(Auth::user());
       $user_id = Auth::user()->id;
       $input = Input::all();
-      
+
       $getAllocTimesheet = DB::table('timesheet')
         ->leftJoin('allocations', 'allocations.alloc_id', '=', 'timesheet.alloc_id')
         ->where('allocations.labour_id',$user_id)
+        ->orderBy('date','desc')
         ->get();
 
       $getBuilder = DB::table('admins')
         ->where('admins.id',1)
         ->get();
-        
+
       return view('/labour/timesheet', [
         'labour_id' => $user_id,
         'builder' => $getBuilder,
@@ -109,7 +109,7 @@ class LabourController extends Controller
       ]);
 
     }
-    
+
     /**
      * Add new timesheet entry.
      */
@@ -125,7 +125,7 @@ class LabourController extends Controller
       $timesheet->start_time = $input['start_time'];
       $timesheet->end_time = $input['end_time'];
       $timesheet->ip_address = $_SERVER['REMOTE_ADDR'];
-      
+
       try {
         $timesheet->save();
         return redirect()->back()->with('message', 'Register created!');
@@ -133,7 +133,7 @@ class LabourController extends Controller
         return view('errors/503', $e);
       }
     }
-    
+
     /**
      * Send an e-mail reminder to the user.
      *
@@ -180,7 +180,7 @@ class LabourController extends Controller
           $message->subject('Labour allocated!');
           $message->priority($level = 1);
         });
-        
+
         return redirect('/labour/allocations')->with('status', 'Job created!');
       } catch (Exception $e) {
         var_dump($e);
@@ -195,7 +195,7 @@ class LabourController extends Controller
       //     DB::commit();
       //     $response = 'User included successfully!';
       //     return redirect(route('labour.allocations'));
-      // 
+      //
       //   } catch (Exception $e) {
       //     DB::rollback();
       //     return view('errors/503', $e);
@@ -203,5 +203,5 @@ class LabourController extends Controller
       // }
 
     }
-    
+
 }
