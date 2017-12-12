@@ -56,8 +56,6 @@ class JobsController extends Controller
         $job->job_status = 'new';
         $job->ip_address = $_SERVER['REMOTE_ADDR'];
 
-        // var_dump($request->session());
-
         if (isset($job)) {
           $job->save();
 
@@ -66,11 +64,11 @@ class JobsController extends Controller
         } else {
           return redirect('/jobs/add')->with('message', 'Login Failed');
         }
-        
+
       }
     }
 
-    public function allocJobView($job_id = ''){ // All available jobs 
+    public function allocJobView($job_id = ''){ // All available jobs
 
       if(!empty($job_id)){
         $getJobByID = DB::table('jobs')->where('job_id',$job_id)->get();
@@ -85,9 +83,8 @@ class JobsController extends Controller
         'builder' => $getCompanies,
       ]);
     }
-    
-    public function jobDel($job_id = ''){ // Job Description 
-      dump($job_id);
+
+    public function jobDel($job_id = ''){ // Job Description
       if(!empty($job_id)){
         DB::table('jobs')->where('job_id',$job_id)->delete();
       }

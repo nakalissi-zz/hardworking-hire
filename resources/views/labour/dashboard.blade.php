@@ -4,83 +4,47 @@
 
   <main class="container">
     <div class="row">
-      
-      <div class="col-md-8 col-md-offset-2">
-          <div class="panel panel-default">
-              <div class="panel-heading">USER Dashboard</div>
 
-              <div class="panel-body">
-                  You are logged in as <strong>USER</strong>!
-              </div>
-          </div>
-      </div>
+      <h3>Allocations Labour</h3>
+      <?php if(isset($allocations)){ ?>
+        <table class="table allocations">
+          <tr>
+            <th>Description</th>
+            <th>Address</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Jobs Status</th>
+          </tr>
+        <?php foreach ($allocations as $key => $value) { ?>
 
-      <!-- 
-      @if( Auth::user() )
-        <div class="col-sm-2">
-          <div class="profile photo img-circle">
-            <i class="glyphicon gi-4x glyphicon-user"></i>
-          </div>
-        </div>
-        <div class="col-sm-10">
+          <tr id="<?php echo $key ?>" onclick="window.location='labour/allocation/<?php echo $value->alloc_id; ?>'">
+            <!-- ACL Admin only -->
+            <td><?php echo $value->job_description; ?></td>
+            <td><?php echo $value->alloc_address; ?></td>
+            <td><?php echo $value->alloc_init; ?></td>
+            <td><?php echo $value->alloc_end; ?></td>
+            <?php
+              if ($value->alloc_status == 'confirmed') {
+                $badge = ' label-success';
+              } else if($value->alloc_status == 'pending'){
+                $badge = ' label-warning';
+              } else if($value->alloc_status == 'expired'){
+                $badge = ' label-danger';
+              } else if($value->alloc_status == 'canceled'){
+                $badge = ' label-danger';
+              } else {
+                $badge = ' label-default';
+              }
+            ?>
+            <td><span class="label<?php echo $badge?>"><?php echo $value->alloc_status; ?></span></td>
 
-              <h3>{{ Auth::user()->email }}</h3>
-  
-              <div class="form-group">
-                <div for="name">E-mail
-                  <div name="email" type="text" class="form-control" value="<?php echo $user->email; ?>" placeholder="Type your e-mail">
-                </div>
-              </div>
-              <div class="form-group">
-                <div for="phone">Phone
-                  <div name="phone" type="text" class="form-control" value="<?php echo $user->phone; ?>"></div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div  class="form-group" for="password">Role
-                  <div name="role" type="text" class="form-control"  value="<?php echo $user->role; ?>"></div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="form-group" for="repass">Unit
-                  <?php $address = $user->ad_unit.'/'.$user->ad_number.' '.$user->ad_street.' '.$user->ad_city; ?>
-                  <div name="address" type="text" class="form-control" value="<?php echo $user->ad_unit; ?>"></div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="form-group" for="repass">Number
-                  <div name="address" type="text" class="form-control" value="<?php echo $user->ad_number; ?>"></div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div for="repass">Street
-                  <div name="address" type="text" class="form-control" value="<?php echo $user->ad_street; ?>"></div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div for="repass">City
-                  <div name="city" type="text" class="form-control" value="<?php echo $user->ad_city; ?>"></div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div for="repass">State
-                  <div name="address" type="text" class="form-control" value="<?php echo $user->ad_state; ?>"></div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div for="repass">Postal Code
-                  <div name="address" type="text" class="form-control" value="<?php echo $user->ad_zip; ?>"></div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div for="repass">Country
-                  <div name="country" type="text" class="form-control" value="<?php echo $user->ad_country; ?>"></div>
-                </div>
-              </div>
-
-        </div>
-      @endif -->
-    
+          </tr>
+        <?php } ?>
+        </table>
+      <?php } else {
+        echo "No allocations found.";
+      } ?>
+    </div>
     </div>
   </main>
 <script type="text/javascript">

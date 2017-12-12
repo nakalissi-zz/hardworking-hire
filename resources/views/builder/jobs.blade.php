@@ -28,8 +28,8 @@
                 </td>
                 <td><?php echo $value->job_name; ?></td>
                 <td><?php echo $value->job_description; ?></td>
-                <td><?php echo $value->ad_unit . ' ' . $value->ad_number . ' ' . $value->ad_street; ?></td>
-                <td><?php echo $value->status; ?></td>
+                <td><?php echo $value->job_address; ?></td>
+                <td><?php echo $value->job_status; ?></td>
               </tr>
             <?php } ?>
             </table>

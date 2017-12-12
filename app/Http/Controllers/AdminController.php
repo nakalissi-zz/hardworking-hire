@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -15,7 +16,8 @@ class AdminController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:admin');
+      // dump(Auth::guard('admin')->check());
+      $this->middleware('guest:admin');
     }
 
     /**
@@ -25,19 +27,15 @@ class AdminController extends Controller
      */
     public function index()
     {
-      var_dump(Auth::admin()->id);
-      $projects = DB::table('jobs')
-        ->where('user_id',$user_id)
-        ->first();
+      // $projects = DB::table('jobs')
+      //   ->where('user_id',$user_id)
+      //   ->first();
 
-      return view('builder.dashboard', [
-        'projects' => $projects,
-        'allocations' => $allocations
-      ]);
+      return view('builder.dashboard');
     }
-    
+
     /**
-      * Get all users
+      * Get admin user
     */
     public function get($builder = ''){
       if ($builder) {
@@ -45,7 +43,7 @@ class AdminController extends Controller
         return view('builder/', ['user' => $builder]);
       }
     }
-    
+
     public function add(Request $request){
 
       $input = Input::all();
@@ -67,27 +65,22 @@ class AdminController extends Controller
         if (isset($array)) {
           $insert = DB::table('admins')->insertGetId($array);
           if ($insert) {
-            // $value = $request->session()->get('key');
-            // $request->session()->flash('status', 'Client included successfully!');
-            // return redirect('register', ['status','Client included successfully!']);
+
           } else {
-            // return redirect('errors/503');
+            return redirect('errors/503');
           }
         }
 
       } else {
         return view('/builder/register');
-        // return redirect('register', ['errors','E-mail already exists.']);
       }
 
-      // var_dump($request->session());
-
     }
-    
+
     public function allocationsView(){
       return view('builder.allocations');
     }
-    
+
     public function jobsView(){
       $jobs = DB::table('jobs')
       ->leftJoin('admins', 'admins.id', '=', 'jobs.builder_id')
@@ -96,7 +89,7 @@ class AdminController extends Controller
       ->get();
       return view('builder/jobs', ['jobs' => $jobs]);
     }
-    
+
     /**
      * Offer a new position.
      *
@@ -118,13 +111,9 @@ class AdminController extends Controller
           'status' => 'new',
         );
 
-        // var_dump($request->session());
-
         if (isset($array)) {
           $insert = DB::table('admins')->insertGetId($array);
           if ($insert) {
-            // $value = $request->session()->get('key');
-            // $request->session()->flash('status', 'Client included successfully!');
             return view('/builder', ['status', 'Client included successfully!']);
           } else {
             return view('errors/503');

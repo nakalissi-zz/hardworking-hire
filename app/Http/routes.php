@@ -22,6 +22,7 @@ Route::post('/labour/allocate', ['uses' => 'LabourController@allocateUser']);
 Route::get('/labour/allocations', ['as' => 'labour.allocations', 'uses' => 'LabourController@allocations']);
 Route::get('/labour/allocation/{id}', ['as' => 'labour.allocation', 'uses' => 'LabourController@timesheetView']);
 Route::post('/labour/timesheet/new', ['as' => 'labour.timesheet.new', 'uses' => 'LabourController@timesheetNew']);
+Route::get('/labour/timesheet/{id}', ['as' => 'labour.timesheet.del', 'uses' => 'LabourController@timesheetDel']);
 
 // Builder auth routes
 Route::get('/builder', ['as' => 'admin.dashboard', 'uses' => 'AdminController@index']);

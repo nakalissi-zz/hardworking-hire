@@ -29,7 +29,7 @@ class AuthController extends Controller
      * @var string
      */
     protected $redirectTo = '/labour';
-    
+
     protected function redirectTo()
     {
         return '/labour';
@@ -42,8 +42,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-      var_dump($this->guestMiddleware());
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+      $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
     /**

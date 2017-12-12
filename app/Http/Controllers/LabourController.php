@@ -30,8 +30,8 @@ class LabourController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
-        Auth::loginUsingId(1);
+        $this->middleware('auth');
+        // Auth::loginUsingId(1);
         $role = Auth::user();
     }
 
@@ -42,14 +42,14 @@ class LabourController extends Controller
      */
     public function index()
     {
-      var_dump('User '.Auth::user()->id);
+      $labour_id = Auth::id();
 
-      $projects = DB::table('jobs')
-        ->where('user_id',$user_id)
-        ->first();
+      $allocations = DB::table('allocations')
+        ->where('allocations.labour_id',$labour_id)
+        ->leftJoin('jobs', 'jobs.builder_id', '=', 'allocations.builder_id')
+        ->get();
 
       return view('labour/dashboard', [
-        'projects' => $projects,
         'allocations' => $allocations
       ]);
     }
@@ -132,6 +132,13 @@ class LabourController extends Controller
       } catch (Exception $e) {
         return view('errors/503', $e);
       }
+    }
+
+    public function timesheetDel($id = ''){
+      if(!empty($id)){
+        DB::table('timesheet')->where('id',$id)->delete();
+      }
+      return redirect()->back()->with('message', 'Register delete successfully!');
     }
 
     /**

@@ -17,19 +17,20 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-      switch ($guard) {
-        case 'admin':
+      dump($guard);
+      // switch ($guard) {
+      //   case 'admin':
+      //     if (Auth::guard($guard)->check()) {
+      //         return redirect('builder');
+      //     }
+      //     break;
+      //
+      //   default:
           if (Auth::guard($guard)->check()) {
-              return redirect('builder.dashboard');
+              return redirect('labour');
           }
-          break;
-        
-        default:
-          if (Auth::guard($guard)->check()) {
-              return redirect('labour.dashboard');
-          }
-          break;
-      }
+      //     break;
+      // }
 
       return $next($request);
     }

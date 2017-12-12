@@ -22,7 +22,7 @@
                     </span>
                   </div>
                 </div>
-                
+
                 <div class="form-group">
                   <label for="start_time">Start Time</label>
                   <div id="datepicker" class="input-group">
@@ -32,8 +32,8 @@
                     </span>
                   </div>
                 </div>
-          
-                <div class="form-group">  
+
+                <div class="form-group">
                     <label for="end_time">End Time</label>
                     <div id="datepicker" class="input-group">
                       <input name="end_time" class="form-control timepicker" type="text" placeholder="Select end time">
@@ -48,15 +48,21 @@
           </form>
         </div>
         </div>
-        
+
         <div class="row">
           <div class="col-sm-12">
-            <h3>Employer's Name: <?php echo $builder[0]->firstname; ?>
+            <h3>Employer's Name: <?php echo $builder[0]->name; ?>
             </h3>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-12">
+          <?php if(Session::get('message')) { ?>
+            <div class="alert alert-success alert-dismissable">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong>Success!</strong> <?php echo Session::get('message'); ?>
+            </div>
+          <?php } ?>
           <?php if(!empty($timesheet)){ ?>
           <table class="table">
             <tr>
@@ -67,7 +73,9 @@
             </tr>
             <?php foreach ($timesheet as $key => $value) { ?>
             <tr>
-              <td><i class="fa fa-trash"></i></td>
+              <td>
+                <a href="/labour/timesheet/<?php echo $value->id; ?>"><i class="fa fa-trash"></i></a>
+              </td>
               <td><?php echo $value->date; ?></td>
               <td><?php echo $value->start_time; ?></td>
               <td><?php echo $value->end_time; ?></td>
@@ -76,16 +84,16 @@
           </table>
           </div>
         </div>
-        
+
         <div class="row signature">
           <div class="col-sm-6">
-            
+
           </div>
           <div class="col-sm-6">
             <p>Responsible Signature</p>
           </div>
         </div>
-        <?php 
+        <?php
         } else { ?>
         <div class="row">
           <div class="col-sm-12">

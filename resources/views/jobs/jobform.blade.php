@@ -18,7 +18,7 @@
               <select class="form-control" name="builder_id">
                 <option value="">Select builder</option>
                 <?php foreach($builders as $key => $value) { ?>
-                  <option value="<?php echo $value->id; ?>"><?php echo $value->firstname ?></option>
+                  <option value="<?php echo $value->id; ?>"><?php echo $value->name ?></option>
                 <?php } ?>
               </select>
             </label>
