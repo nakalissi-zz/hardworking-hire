@@ -61,29 +61,13 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/') }}">Home</a></li>
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            Builder <span class="caret"></span>
-                        </a>
-
-                        <ul class="dropdown-menu" role="menu">
-
-                            <li><a href="{{ url('/jobs/add') }}">Create Job</a></li>
-                            <li><a href="{{ url('/builder/jobs') }}">All Jobs</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="{{ url('/builder/allocations') }}">Allocations</a></li>
-                        </ul>
-                    </li>
+                  <li><a href="{{ url('/') }}">Home</a></li>
+                  <li><a href="{{ url('/alljobs') }}">All Jobs</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
-
-                    <!-- <li><a href="{{ url('/login ')}}">Labour</a></li>
-                    <li><a href="{{ url('/builder/login ')}}">Builder</a></li> -->
 
                     @if( Auth::user() )
                     <li class="dropdown">
@@ -96,7 +80,21 @@
                             <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                         </ul>
                     </li>
-                    @elseif ( Auth::guest('admin') )
+                    @elseif ( Auth::guard('admin')->user() ) 
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            {{ Auth::guard('admin')->user()->name }} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('/jobs/add') }}">Create Job</a></li>
+                            <li><a href="{{ url('/builder/jobs') }}">All Jobs</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ url('/builder/allocations') }}">Allocations</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                    @elseif ( Auth::guest('admin') ) 
                     <li><a href="{{ url('/builder/login') }}">Login</a></li>
                     <li><a href="{{ url('/builder/register') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                     @else
@@ -108,7 +106,7 @@
             </div>
         </div>
     </nav>
-    {{Auth::user('admin')}}
+
     @yield('content')
 
     @include('layouts.footer')

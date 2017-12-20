@@ -6,7 +6,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admin extends Authenticatable
 {
-
     protected $guard = 'admin';
     protected $table = 'admins';
     /**
@@ -15,9 +14,10 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone',
-        'remember_token', 'created_at', 'updated_at', 'ad_unit', 'ad_number',
-        'ad_street', 'ad_city', 'ad_state', 'ad_country', 'ip_address', 'status'
+        'name', 'email', 'password', 'abn', 'phone',
+        'remember_token', 'ad_unit', 'ad_number',
+        'ad_street', 'ad_city', 'ad_state', 'ad_country', 'created_at', 'updated_at', 
+        'ip_address', 'role', 'status'
     ];
 
     /**

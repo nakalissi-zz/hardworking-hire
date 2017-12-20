@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 // Models
 use App\User;
+use App\Admin;
 use App\Allocation;
 use App\Job;
 use App\Timesheet;
@@ -32,7 +33,7 @@ class LabourController extends Controller
     {
         $this->middleware('auth');
         // Auth::loginUsingId(1);
-        $role = Auth::user();
+        // $role = Auth::user();
     }
 
     /**
@@ -47,6 +48,7 @@ class LabourController extends Controller
       $allocations = DB::table('allocations')
         ->where('allocations.labour_id',$labour_id)
         ->leftJoin('jobs', 'jobs.builder_id', '=', 'allocations.builder_id')
+        ->orderBy('jobs.updated_at','desc')
         ->get();
 
       return view('labour/dashboard', [
@@ -78,7 +80,7 @@ class LabourController extends Controller
         ->where('allocations.labour_id',$user_id)
         ->orderBy('allocations.created_at','desc')
         ->get();
-
+        dump($getAllocUser);
       return view('/labour/allocations', [
         'allocations' => $getAllocUser
       ]);
@@ -160,55 +162,67 @@ class LabourController extends Controller
     }
 
     public function allocateUser(Request $request){
-
+      
       $allocation = new Allocation();
-      $allocation->builder_id = $request->input('firstname');
+      $allocation->builder_id = $request->input('builder_id');
+      $allocation->job_id = $request->input('job_id');
       $allocation->labour_id = Auth::user()->id;
-      $allocation->alloc_init = $request->input('date_init');
-      $allocation->alloc_end = $request->input('date_end');
+      $allocation->alloc_init = $request->input('job_init');
+      $allocation->alloc_end = $request->input('job_end');
       $allocation->alloc_address = $request->input('job_address');
       $allocation->alloc_status = 'new';
       $allocation->ip_address = $_SERVER['REMOTE_ADDR'];
 
-      var_dump($allocation);
       try {
         $allocation->save();
-
+        
         $user = Auth::user();
-        $params = array('user'=>$user->firstname);
-        dump($params);
-        // $user = User::findOrFail($id);
-        $user = User::findOrFail(1)->toArray();
-        dump($user);
-        Mail::send('emails.send', $params, function ($message) {
-          $message->from('nakalissi@gmail.com');
-          $message->sender('nakalissi@gmail.com');
-          $message->to('nakalissi@gmail.com');
-          $message->subject('Labour allocated!');
-          $message->priority($level = 1);
+        $builder = Admin::where('id',$request->input('builder_id'))->firstOrFail();
+        
+        $params = array(
+          'id'=>$user->id,
+          'user'=>$user->firstname,
+          'email'=>$user->email,
+          'job'=>$request->input('job_name'),
+          'allocation'=>$allocation->alloc_id,
+          'builder'=>$builder['attributes']
+        );
+        
+        Mail::send('emails.send', $params, function ($m) use ($params) {
+          $m->from('nakalissi@gmail.com', 'Hardworking Hire');
+          $m->to($params['builder']['email'],$params['builder']['name']);
+          $m->subject('Labour allocation request');
         });
 
-        return redirect('/labour/allocations')->with('status', 'Job created!');
+        return redirect()->back()->with('message', 'Allocation created!');
       } catch (Exception $e) {
-        var_dump($e);
         return view('errors/503', $e);
       }
 
-      // if (isset($array)) {
-      //   try {
-      //     DB::table('allocations')->insertGetId($array);
-      //     DB::table('users')->where('id',$input['user_id'])
-      //       ->update(['status' => 'allocated', 'date_updated' => date('Y-m-d H:i:s')]);
-      //     DB::commit();
-      //     $response = 'User included successfully!';
-      //     return redirect(route('labour.allocations'));
-      //
-      //   } catch (Exception $e) {
-      //     DB::rollback();
-      //     return view('errors/503', $e);
-      //   }
-      // }
+    }
+    
+    public function changeStatus($id, $status){
 
+      try {
+        $getAllocation = Allocation::where('alloc_id', $id)->first();
+        $allocation = $getAllocation['attributes'];
+        
+        Allocation::where('alloc_id', $allocation['alloc_id'])
+          ->update(['alloc_status' => $status]);
+        
+        $getJob = Job::where('job_id',$allocation['job_id'])->first();
+        $job = $getJob['attributes'];
+
+        $takePosition = $job['positions'] - 1;
+
+        Job::where('job_id', $allocation['job_id'])
+          ->update(['positions' => $takePosition]);
+          
+        return redirect('/builder/allocations')->with('message', 'Allocation confirmed!');
+      } catch (Exception $e) {
+        dump($e);
+      }
+      
     }
 
 }

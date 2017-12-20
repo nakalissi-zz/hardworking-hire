@@ -8,7 +8,12 @@
                 <div class="panel-heading">ADMIN Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in as <strong>ADMIN</strong>
+                  @if (Auth::guard('admin')->check())
+                      Currently logged in as customer {{ Auth::guard('admin')->user()->name }}
+                  @endif
+                  You are logged in as <strong>{{ Auth::guard('admin')->user() }}</strong>
+                  <?php dump(Auth::guard('admin')->user()) ?>
+                  <?php dump($user); ?>
                 </div>
             </div>
         </div>

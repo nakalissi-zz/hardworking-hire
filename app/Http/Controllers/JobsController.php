@@ -17,7 +17,7 @@ class JobsController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('guest');
     }
 
     /**
@@ -30,6 +30,16 @@ class JobsController extends Controller
       $jobs = DB::table('jobs')
       ->leftJoin('admins', 'admins.builder_id', '=', 'jobs.builder_id')
       ->get();
+      return view('jobs/all', ['jobs' => $jobs]);
+    }
+    
+    public function allJobs()
+    {
+      $jobs = DB::table('jobs')
+        ->leftJoin('admins','admins.id', '=', 'jobs.builder_id')
+        ->where('job_status','!=','canceled')
+        ->get();
+        dump($jobs);
       return view('jobs/all', ['jobs' => $jobs]);
     }
 
@@ -71,16 +81,11 @@ class JobsController extends Controller
     public function allocJobView($job_id = ''){ // All available jobs
 
       if(!empty($job_id)){
-        $getJobByID = DB::table('jobs')->where('job_id',$job_id)->get();
+        $getJobByID = DB::table('jobs')->where('job_id',$job_id)->first();
       }
-      $getUsers = DB::table('users')
-        ->where('status','available')
-        ->get();
       $getCompanies = DB::table('admins')->get();
       return view('/jobs/alloc-job-view', [
-        'job' => $getJobByID,
-        'users' => $getUsers,
-        'builder' => $getCompanies,
+        'job' => $getJobByID
       ]);
     }
 

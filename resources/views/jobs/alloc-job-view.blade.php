@@ -5,66 +5,55 @@
   <main class="container">
     <div class="row">
         <div class="col-sm-12">
-          <form class="formSignup" name="formJob" id="formAllocateUser" action="/users/allocate" method="post">
-            <h3>Allocate Labour</h3>
+          <?php if(Session::get('message')) { ?>
+            <div class="alert alert-success alert-dismissable">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong>Success!</strong> <?php echo Session::get('message'); ?>
+            </div>
+          <?php } ?>
+          <form class="form-horizontal" action="/labour/allocate" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="job_id" value="<?php echo $job->job_id; ?>">
+            <input type="hidden" name="builder_id" value="<?php echo $job->builder_id; ?>">
+            <input type="hidden" name="job_name" value="<?php echo $job->job_name; ?>">
+            <input type="hidden" name="job_description" value="<?php echo $job->job_description; ?>">
+            <input type="hidden" name="job_address" value="<?php echo $job->job_address; ?>">
+            <input type="hidden" name="job_init" value="<?php echo $job->job_init; ?>">
+            <input type="hidden" name="job_end" value="<?php echo $job->job_end; ?>">
+            <h3>Allocate Labour</h3>
+            
+            <div class="job-title">
+              <strong>Job Title</strong>
+              <p><?php echo $job->job_name; ?></p>
+            </div>
+            
+            <div class="job-description">
+              <strong>Job Description</strong>
+              <p><?php echo $job->job_description; ?></p>
+            </div>
+            
+            <div class="job-description">
+              <strong>Where</strong>
+              <p><?php echo $job->job_address; ?></p>
+            </div>
 
-            <?php foreach ($job as $key => $value) { ?>
-              <input type="hidden" name="job_id" value="<?php echo $value->job_id ?>">
-              <label for="job_name">Job Title
-                <input name="job_name" type="text" class="form-control" placeholder="Type the job title" value="<?php echo $value->job_name; ?>" disabled>
-              </label>
-              <label for="job_description">Job Description
-                <textarea class="form-control" name="job_description" rows="8" cols="80" disabled>
-                  <?php echo trim($value->job_description); ?>
-                </textarea>
-              </label>
-            <?php } ?>
-
-            <label for="client">Companies
-              <select class="form-control" name="client_id">
-                <option value=""></option>
-                <?php foreach ($clients as $key => $value) {
-                  echo '<option value="'.$value->client_id.'">'.$value->business_name.'</option>';
-                } ?>
-              </select>
-            </label>
-            <label for="users">Labours
-              <select class="form-control" name="user_id">
-                <option value=""></option>
-                <?php foreach ($users as $key => $value) {
-                  echo '<option value="'.$value->user_id.'">'.$value->firstname.' '.$value->lastname.'</option>';
-                } ?>
-              </select>
-            </label>
-            <label for="job_address">Place
-              <input id="autocomplete" onfocus="geolocate()" name="job_address" type="text" class="form-control" placeholder="Type the job address">
-            </label>
             <div class="row">
               <div class="col-sm-6">
-                <label for="job_init">Start Date
-                  <div class="input-group">
-                    <input name="date_init" class="form-control datepicker" data-datepicker-format="yyyy-mm-dd" type="text" placeholder="Select init date">
-                    <span class="input-group-addon">
-                      <i class="glyphicon glyphicon-calendar"></i>
-                    </span>
-                  </div>
-                </label>
+                <strong>Start Date</strong>
+                <div class="input-group">
+                  <?php echo $job->job_init; ?>
+                </div>
               </div>
               <div class="col-sm-6">
-                <label for="job_init">End Date
-                  <div class="input-group">
-                    <input name="date_end" class="form-control datepicker" type="text" placeholder="Select end date">
-                    <span class="input-group-addon">
-                      <i class="glyphicon glyphicon-calendar"></i>
-                    </span>
-                  </div>
-                </label>
+                <strong>End Date</strong>
+                <div class="input-group">
+                  <?php echo $job->job_end; ?>
+                </div>
               </div>
             </div>
 
             <p>&nbsp;</p>
-            <button type="submit" class="btn btn-block btn-primary">Submit</button>
+            <button type="submit" class="btn btn-block btn-primary">Assign Job</button>
           </form>
         </div>
     </div>

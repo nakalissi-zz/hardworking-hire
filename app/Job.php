@@ -12,6 +12,8 @@ class Job extends Model
    * @var string
    */
   protected $table = 'jobs';
+  
+  protected $primaryKey = 'job_id'; // or null
 
   /**
    * The attributes that are mass assignable.
@@ -19,7 +21,7 @@ class Job extends Model
    * @var array
    */
   protected $fillable = [
-      'alloc_id', 'builder_id', 'job_name', 'job_description', 'job_init', 'job_end', 
+      'builder_id', 'job_name', 'job_description', 'job_init', 'job_end', 
       'job_address', 'positions', 'created_at', 'updated_at', 'ip_address', 'job_status'
   ];
 

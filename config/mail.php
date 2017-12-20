@@ -81,7 +81,7 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME', 'nakalissi@gmail.com'),
+    'username' => env('MAIL_USERNAME', 'postmaster@sandboxe5647d62ef1b46f4adf09dbe0e84df8f.mailgun.org'),
 
     /*
     |--------------------------------------------------------------------------
@@ -94,7 +94,7 @@ return [
     |
     */
 
-    'password' => env('MAIL_PASSWORD', 'd1a8c2e2f9'),
+    'password' => env('MAIL_PASSWORD', '2c1b7c0db79465864ac2881662d99c0a'),
 
     /*
     |--------------------------------------------------------------------------
@@ -106,7 +106,7 @@ return [
     | been provided here, which will work well on most of your systems.
     |
     */
-
-    'sendmail' => '/usr/sbin/sendmail -bs',
+    // 
+    // 'sendmail' => '/usr/sbin/sendmail -bs',
 
 ];

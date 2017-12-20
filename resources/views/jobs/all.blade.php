@@ -23,10 +23,9 @@
               <tr id="<?php echo $key ?>">
                 <!-- ACL Admin only -->
                 <td>
-                  <a href="/jobs/{{ $value->job_id }}"><i class="glyphicon glyphicon-link"></i></a>
-                  <!-- <input type="checkbox" name="job[]" value="<?php echo $value->job_id; ?>"> -->
+                  <a href="/jobs/<?php echo $value->job_id; ?>"><i class="glyphicon glyphicon-link"></i></a>
                 </td>
-                <td><?php echo $value->business_name; ?></td>
+                <td><?php echo $value->name; ?></td>
                 <td><?php echo $value->phone; ?></td>
                 <td><?php echo $value->email; ?></td>
                 <td><?php echo $value->job_name; ?></td>
@@ -40,6 +39,8 @@
                     $badge = ' badge-success';
                   } else if($value->status == 'allocated'){
                     $badge = ' badge-danger';
+                  } else {
+                    $badge = ' badge-default';
                   }
                 ?>
                 <td><span class="badge<?php echo $badge?>"><?php echo $value->status; ?></span></td>

@@ -29,9 +29,13 @@
                 <th>Jobs Status</th>
               </tr>
             <?php foreach ($jobs as $key => $value) { ?>
-              <tr id="<?php echo $key ?>" onclick="window.location='jobs/<?php echo $value->job_id; ?>'">
+              <?php if ($value->positions > 0) { ?>
+                <tr id="<?php echo $key ?>" class="enabled" onclick="window.location='job/<?php echo $value->job_id; ?>'">
+              <?php } else { ?>
+                <tr id="<?php echo $key ?>" class="disabled">
+              <?php } ?>
                 <!-- ACL Admin only -->
-                <td><?php echo $value->firstname; ?></td>
+                <td><?php echo $value->name; ?></td>
                 <td><?php echo $value->phone; ?></td>
                 <td><?php echo $value->email; ?></td>
                 <td><?php echo $value->job_name; ?></td>

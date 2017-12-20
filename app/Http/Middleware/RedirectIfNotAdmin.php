@@ -7,20 +7,22 @@ use Illuminate\Support\Facades\Auth;
 
 class RedirectIfNotAdmin
 {
-	/**
-	 * Handle an incoming request.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \Closure  $next
-	 * @param  string|null  $guard
-	 * @return mixed
-	 */
-	public function handle($request, Closure $next, $guard = 'admin')
-	{
-	    if (!Auth::guard($guard)->check()) {
-	        return redirect('/builder/login');
-	    }
+  /**
+   * Handle an incoming request.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  \Closure  $next
+   * @param  string|null  $guard
+   * @return mixed
+   */
+   public function handle($request, Closure $next, $guard = 'admin')
+   {
+     
+       if (!Auth::guard($guard)->check()) {
+         echo 'guard: '.$guard;
+          // return redirect('/builder/login');
+       }
 
-	    return $next($request);
-	}
+       return $next($request);
+  }
 }

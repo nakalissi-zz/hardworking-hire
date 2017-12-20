@@ -1,6 +1,7 @@
 $color-primary: #d1b934;
 $color-secondary: #000;
 $color-hover: #F5F5F5;
+$color-disabled: #CCC;
 
 html, body {
     height: 100%;
@@ -42,13 +43,19 @@ body {
   }
 }
 
-.table.allocation{
+.table{
   tbody{
     tr{
+      .enabled{
+        cursor: pointer;
+      }
       &:hover{
         background-color: $color-hover;
       }
     }
+  }
+  .disabled{
+    color: $color-disabled;
   }
 }
 

@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-sm-12">
           <h3>All available labours</h3>
-          <?php var_dump($users); ?>
+
           <?php if (isset($users)) { ?>
             <table class="table allocation">
               <tr>

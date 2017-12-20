@@ -10,11 +10,11 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/builder/register/submit') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
-                            <label for="firstname" class="col-md-4 control-label">First Name</label>
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
-                                <input id="firstname" type="text" class="form-control" name="firstname" value="{{ old('firstname') }}">
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('firstname') }}">
 
                                 @if ($errors->has('firstname'))
                                     <span class="help-block">
@@ -24,11 +24,11 @@
                             </div>
                         </div>
                         
-                        <div class="form-group{{ $errors->has('lastname') ? ' has-error' : '' }}">
-                            <label for="lastname" class="col-md-4 control-label">Last Name</label>
+                        <div class="form-group{{ $errors->has('ABN') ? ' has-error' : '' }}">
+                            <label for="abn" class="col-md-4 control-label">ABN</label>
 
                             <div class="col-md-6">
-                                <input id="lastname" type="text" class="form-control" name="lastname" value="{{ old('lastname') }}">
+                                <input id="abn" type="text" class="form-control" name="abn" value="{{ old('lastname') }}">
 
                                 @if ($errors->has('lastname'))
                                     <span class="help-block">

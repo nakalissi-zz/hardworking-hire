@@ -15,23 +15,13 @@ class RedirectIfAuthenticated
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
-    {
-      dump($guard);
-      // switch ($guard) {
-      //   case 'admin':
-      //     if (Auth::guard($guard)->check()) {
-      //         return redirect('builder');
-      //     }
-      //     break;
-      //
-      //   default:
-          if (Auth::guard($guard)->check()) {
-              return redirect('labour');
-          }
-      //     break;
-      // }
+     public function handle($request, Closure $next, $guard = null)
+     {
+       dump($guard);
+         if (Auth::guard($guard)->check()) {
+             return redirect('/labour');
+         }
 
-      return $next($request);
-    }
+         return $next($request);
+     }
 }

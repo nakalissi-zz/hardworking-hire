@@ -24,21 +24,25 @@ Route::get('/labour/allocation/{id}', ['as' => 'labour.allocation', 'uses' => 'L
 Route::post('/labour/timesheet/new', ['as' => 'labour.timesheet.new', 'uses' => 'LabourController@timesheetNew']);
 Route::get('/labour/timesheet/{id}', ['as' => 'labour.timesheet.del', 'uses' => 'LabourController@timesheetDel']);
 
+Route::get('/allocation/{id}/{status}', ['as' => 'labour.changestatus', 'uses' => 'LabourController@changeStatus']);
+
 // Builder auth routes
-Route::get('/builder', ['as' => 'admin.dashboard', 'uses' => 'AdminController@index']);
+Route::get('/builder', ['as' => 'admin.dashboard', 'uses' => 'Auth\AdminLoginController@index']);
 Route::get('/builder/login', ['as' => 'admin.login', 'uses' => 'Auth\AdminLoginController@loginForm']);
 Route::post('/builder/login/submit', ['as' => 'admin.login.submit', 'uses' => 'Auth\AdminLoginController@login']);
 Route::get('/builder/register', ['as' => 'admin.register', 'uses' => 'Auth\AdminLoginController@registerForm']);
 Route::post('/builder/register/submit', ['as' => 'admin.register.submit', 'uses' => 'Auth\AdminLoginController@register']);
 
 // Builder
-Route::get('/builder/all', ['as' => 'admin.all', 'uses' => 'AdminController@all']);
-Route::get('/builder/update', 'AdminController@updateUser');
-Route::get('/builder/allocations', ['as' => 'admin.allocations', 'uses' => 'AdminController@allocationsView']);
-Route::get('/builder/jobs', ['as' => 'admin.jobs', 'uses' => 'AdminController@jobsView']);
+Route::get('/builder/all', ['as' => 'admin.all', 'uses' => 'Auth\AdminLoginController@all']);
+Route::get('/builder/update', 'Auth\AdminLoginController@updateUser');
+Route::get('/builder/allocations', ['as' => 'admin.allocations', 'uses' => 'Auth\AdminLoginController@allocationsView']);
+Route::get('/builder/jobs', ['as' => 'admin.jobs', 'uses' => 'Auth\AdminLoginController@jobsView']);
+
 // Jobs
 Route::get('/jobs', 'JobsController@index');
+Route::get('/alljobs', 'JobsController@allJobs');
 Route::get('/jobs/add', 'JobsController@add');
 Route::post('/jobs/addjob', ['uses' => 'JobsController@addjob']);
-Route::get('/job/{id}', ['uses' => 'JobsController@jobDel']);
-// Route::get('/jobs/{id}', ['uses' => 'JobsController@allocJobView']);
+Route::post('/job/{id}', ['uses' => 'JobsController@jobDel']);
+Route::get('/job/{id}', ['uses' => 'JobsController@allocJobView']);

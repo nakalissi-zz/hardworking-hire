@@ -24,7 +24,7 @@
             <td><?php echo $value->alloc_init; ?></td>
             <td><?php echo $value->alloc_end; ?></td>
             <?php
-              if ($value->alloc_status == 'confirmed') {
+              if ($value->alloc_status == 'allocated') {
                 $badge = ' label-success';
               } else if($value->alloc_status == 'pending'){
                 $badge = ' label-warning';
